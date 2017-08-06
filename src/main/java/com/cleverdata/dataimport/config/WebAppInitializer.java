@@ -40,8 +40,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] {ServiceConfig.class,RestConfig.class};
-		//return new Class<?>[] {ServiceConfig.class,RestConfig.class,SwaggerConfig.class}; --not working due bug inside converter
+		return new Class<?>[] {ServiceConfig.class};
 	}
 	
 	@Override

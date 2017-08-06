@@ -25,11 +25,11 @@ public class ReportRestController {
 	@Autowired
 	ReadFilesFromDirectoryScheduler readFilesFromDirectoryScheduler;
 
-	@ResponseBody
-	@RequestMapping(path = "/data",method = RequestMethod.GET)
-	public CompanyEmplStructure getAllData(){
-		return dataService.getAllData();
-	}
+//	@ResponseBody
+//	@RequestMapping(path = "/data",method = RequestMethod.GET)
+//	public CompanyEmplStructure getAllData(){
+//		return dataService.getAllData();
+//	}
 
 
 	@ResponseBody

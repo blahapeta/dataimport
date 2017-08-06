@@ -22,19 +22,12 @@
  */
 package com.cleverdata.dataimport.config;
 
-import com.google.common.cache.CacheBuilder;
 import org.h2.tools.Server;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.domain.AuditorAware;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -50,28 +43,26 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 
 @EnableTransactionManagement
-
+@EnableAspectJAutoProxy
 @EnableJpaRepositories(basePackages = {"com.cleverdata.dataimport.repository"})
 @Configuration
-@ComponentScan(basePackages = {"com.cleverdata.dataimport"})
-@EnableCaching
+@ComponentScan(basePackages = {"com.cleverdata.dataimport"}, lazyInit = true)
 @EnableScheduling
 public class ServiceConfig {
 
 	private JndiTemplate jndiTemplate = new JndiTemplate();
 
-	private int cacheEvictionMinutes = 30;
+//	private int cacheEvictionMinutes = 30;
 
-	@Bean(value = "guavaCacheManager")
-	public CacheManager cacheManager() {
-		GuavaCacheManager cacheManager =  new GuavaCacheManager();
-		cacheManager.setCacheBuilder(CacheBuilder.newBuilder().expireAfterAccess(30, TimeUnit.MINUTES));
-		return cacheManager;
-	}
+//	@Bean(value = "guavaCacheManager")
+//	public CacheManager cacheManager() {
+//		GuavaCacheManager cacheManager =  new GuavaCacheManager();
+//		cacheManager.setCacheBuilder(CacheBuilder.newBuilder().expireAfterAccess(30, TimeUnit.MINUTES));
+//		return cacheManager;
+//	}
 
 
 
@@ -123,10 +114,6 @@ public class ServiceConfig {
 		return transactionManager;
 	}
 
-//	@Bean(initMethod="start",destroyMethod="stop")
-//	public org.h2.tools.Server h2WebConsonleServer () throws SQLException {
-//		return org.h2.tools.Server.createWebServer("-web","-webAllowOthers","-webDaemon","-webPort", "8082");
-//	}
 
 
 
